@@ -22,7 +22,7 @@ enum class EBugSeverity : uint8
 
 
 
-inline void WEBCOREUTILITIES_API PrintDebugInfos(const FString& TextToShow, const EBugSeverity Severity)
+inline void CIMTOOLUNITY_API PrintDebugInfos(const FString& TextToShow, const EBugSeverity Severity)
 {
 	check(!TextToShow.IsEmpty())
 	
@@ -52,29 +52,29 @@ inline void WEBCOREUTILITIES_API PrintDebugInfos(const FString& TextToShow, cons
 
 
 
-inline void WEBCOREUTILITIES_API Print(FString TextToShow)
+inline void CIMTOOLUNITY_API Print(const FString& TextToShow)
 {
 	check(!TextToShow.IsEmpty())
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, DEBUG_TEXT(TextToShow));
 }
 
 
-// EAppReturnType::Type ShowMsgDialog(EAppMsgType::Type MsgType, const FString& Message, 
-// bool bShowMsgAsWarning = true)
-// {	
-// 	if(bShowMsgAsWarning)
-// 	{
-// 		FText MsgTitle = FText::FromString(TEXT("Warning"));
-//
-// 		return FMessageDialog::Open(MsgType,FText::FromString(Message),&MsgTitle);
-// 	}
-// 	else
-// 	{
-// 		return FMessageDialog::Open(MsgType,FText::FromString(Message));
-// 	}			
-// }
+inline EAppReturnType::Type CIMTOOLUNITY_API ShowMsgDialog(EAppMsgType::Type MsgType, const FString& Message, 
+bool bShowMsgAsWarning = true)
+{	
+	if(bShowMsgAsWarning)
+	{
+		const FText MsgTitle = FText::FromString(TEXT("Warning"));
 
-inline void WEBCOREUTILITIES_API ShowNotifyInfo(const FString& Message)
+		return FMessageDialog::Open(MsgType,FText::FromString(Message),&MsgTitle);
+	}
+	else
+	{
+		return FMessageDialog::Open(MsgType,FText::FromString(Message));
+	}			
+}
+
+inline void CIMTOOLUNITY_API ShowNotifyInfo(const FString& Message)
 {
 	FNotificationInfo NotifyInfo(FText::FromString(Message));
 	NotifyInfo.bUseLargeFont = true;
