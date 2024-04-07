@@ -3,6 +3,7 @@
 
 #include "TestActor.h"
 #include "CimFunctionCaller.h"
+#include "DebugHeader.h"
 
 // Sets default values
 ATestActor::ATestActor()
@@ -31,13 +32,13 @@ void ATestActor::BeginPlay()
 	Super::BeginPlay();
 
 	TTuple<void*> OutParams;
-	UCimFunctionCaller::CallInternal2(this->GetClass(), this->FindFunction(FName("TestFunc")), OutParams);
-	UCimFunctionCaller::CallInternal3(this->GetClass(), this->FindFunction(FName("TestFunc2")), OutParams, FString("Hello World"));
+	// UCimFunctionCaller::Caller_Internal(this->GetClass(), this->FindFunction(FName("TestFunc")), OutParams);
+	// UCimFunctionCaller::CallInternal3(this->GetClass(), this->FindFunction(FName("TestFunc2")), OutParams, FString("Hello World"));
 	// find uclass object and call the function
 	if (UClass* TestClass =
-		FindObject<UClass>(ANY_PACKAGE, TEXT("NewBlueprint1_C")))
+		FindObject<UClass>(ANY_PACKAGE, TEXT("NewBlueprint_C")))
 	{
-			UCimFunctionCaller::CallInternal2(TestClass, TestClass->FindFunctionByName(FName("T4")), OutParams, true);
+			// UCimFunctionCaller::Caller_Internal(TestClass, TestClass->FindFunctionByName(FName("T4")), OutParams, true);
 
 	}
 	else
@@ -45,7 +46,35 @@ void ATestActor::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Can't find the class"));
 	
 	}
+	TEXT("/Script/Engine.Blueprint'/Game/Developers/ue/NewFunctionLibrary.NewFunctionLibrary'");
+	TArray<UObject*> Objects;
+	GetObjectsOfClass(UBlueprintFunctionLibrary::StaticClass(), Objects);
+	UClass* TestClass = LoadClass<UBlueprintFunctionLibrary>(nullptr, TEXT("/Game/Developers/ue/NewFunctionLibrary.NewFunctionLibrary_C"));
+	if (TestClass)
+	{
+		PrintDebugInfos(TestClass->GetClass()->GetName(),EBugSeverity::EWarning);
+		UCimFunctionCaller::Caller_Internal(TestClass->GetClass(), TestClass->FindFunctionByName(FName("Test")), OutParams, true);
+		// PrintDebugInfos(TEXT("adadasdsadsa"),EBugSeverity::EWarning);
 
+		
+	}
+	// if (Objects.Num() > 0)
+	// {
+	// 	for (const auto& ccc : Objects)
+	// 	{
+	// 		UBlueprintFunctionLibrary* xxxx = Cast<UBlueprintFunctionLibrary>(ccc);
+	// 		if (xxxx)
+	// 		{
+	// 			UE_LOG(LogTemp, Warning, TEXT("Find the class, name is %s"), *xxxx->GetName());
+	// 			// 
+	// 		}
+	// 	}
+	// 	Print(TEXT("YESYESYES"));
+	// }
+	// else
+	// {
+	// 	Print(TEXT("can't find the function"));
+	// }
 	
 }
 

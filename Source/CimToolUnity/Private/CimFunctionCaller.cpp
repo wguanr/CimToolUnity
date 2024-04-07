@@ -5,7 +5,7 @@
 
 
 template<typename... TReturns, typename... TArgs>
-void UCimFunctionCaller::CallInternal2(UClass* OuterClass, UFunction* Function, TTuple<TReturns...>& OutParams, TArgs&&... Args)
+void UCimFunctionCaller::Caller_Internal(UClass* OuterClass, UFunction* Function, TTuple<TReturns...>& OutParams, TArgs&&... Args)
 {
   uint8* OutParamsBytes = (uint8*)&OutParams; // the addr of the in Tuple OutParams, which is the return value of the function
   TTuple<TArgs...> InParams(Forward<TArgs>(Args)...);
@@ -77,7 +77,7 @@ void UCimFunctionCaller::CallInternal2(UClass* OuterClass, UFunction* Function, 
     }
   }
 
-  FMemory::Free(FuncParamsStructAddr);
+  // FMemory::Free(FuncParamsStructAddr); // you can't do that!
   
 }
 
@@ -113,4 +113,13 @@ void UCimFunctionCaller::CallInternal3(UClass* OuterClass, UFunction* Function, 
       OutParamsBytes += prop->GetSize();
     }
   }
+}
+
+void UCimFunctionCaller::Caller(const FString& Name, const FString& Args, const FString& Returns)
+{
+  // find the function or event or interface by name
+
+  // pass the args
+
+  return;
 }

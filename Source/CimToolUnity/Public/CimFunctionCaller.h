@@ -16,11 +16,13 @@ class CIMTOOLUNITY_API UCimFunctionCaller : public UObject
 
 public:
 	template<typename... TReturns, typename... TArgs>
-	static void CallInternal2(UClass* OuterClass, UFunction* Function, TTuple<TReturns...>& OutParams, TArgs&&... Args);
+	static void Caller_Internal(UClass* OuterClass, UFunction* Function, TTuple<TReturns...>& OutParams, TArgs&&... Args);
 
 	template<typename... TReturns, typename... TArgs>
 	static void CallInternal3(UClass* OuterClass, UFunction* Function, TTuple<TReturns...>& OutParams, TArgs&&... Args);
 
+	UFUNCTION()
+	static void Caller( UPARAM(ref) const FString& Name, UPARAM(ref) const FString& Args, const FString& Returns);
 };
 
 
