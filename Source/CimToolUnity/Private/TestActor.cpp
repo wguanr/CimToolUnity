@@ -52,30 +52,14 @@ void ATestActor::BeginPlay()
 	UClass* TestClass = LoadClass<UBlueprintFunctionLibrary>(nullptr, TEXT("/Game/Developers/ue/NewFunctionLibrary.NewFunctionLibrary_C"));
 	if (TestClass)
 	{
-		PrintDebugInfos(TestClass->GetClass()->GetName(),EBugSeverity::EWarning);
+		DebugThis(TestClass->GetClass()->GetName(),EBugSeverity::EWarning);
 		UCimFunctionCaller::Caller_Internal(TestClass->GetClass(), TestClass->FindFunctionByName(FName("Test")), OutParams, true);
-		// PrintDebugInfos(TEXT("adadasdsadsa"),EBugSeverity::EWarning);
-
 		
 	}
-	// if (Objects.Num() > 0)
-	// {
-	// 	for (const auto& ccc : Objects)
-	// 	{
-	// 		UBlueprintFunctionLibrary* xxxx = Cast<UBlueprintFunctionLibrary>(ccc);
-	// 		if (xxxx)
-	// 		{
-	// 			UE_LOG(LogTemp, Warning, TEXT("Find the class, name is %s"), *xxxx->GetName());
-	// 			// 
-	// 		}
-	// 	}
-	// 	Print(TEXT("YESYESYES"));
-	// }
-	// else
-	// {
-	// 	Print(TEXT("can't find the function"));
-	// }
 	
+	// get the utc time
+	FDateTime CurrentTime = FDateTime::UtcNow();
+	UE_LOG(LogTemp, Warning, TEXT("UTC time: %s"), *CurrentTime.ToString());
 }
 
 // Called every frame
