@@ -9,7 +9,9 @@
 
 DEFINE_LOG_CATEGORY_STATIC(DebugHeader, Log, All);
 
+
 #define DEBUG_TEXT(TextToShow) FString::Printf(TEXT("[DebugHeader] : %s"), *TextToShow)
+// get the utc time
 
 
 enum class EBugSeverity : uint8
@@ -22,10 +24,9 @@ enum class EBugSeverity : uint8
 
 
 
-inline void CIMTOOLUNITY_API PrintDebugInfos(const FString& TextToShow, const EBugSeverity Severity)
+inline void CIMTOOLUNITY_API DebugThis(const FString& TextToShow, const EBugSeverity Severity)
 {
 	check(!TextToShow.IsEmpty())
-	
 	if(GEngine)
 	{
 		switch (Severity)
@@ -52,7 +53,7 @@ inline void CIMTOOLUNITY_API PrintDebugInfos(const FString& TextToShow, const EB
 
 
 
-inline void CIMTOOLUNITY_API Print(const FString& TextToShow)
+inline void CIMTOOLUNITY_API DebugPrint(const FString& TextToShow)
 {
 	check(!TextToShow.IsEmpty())
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, DEBUG_TEXT(TextToShow));
@@ -82,3 +83,4 @@ inline void CIMTOOLUNITY_API ShowNotifyInfo(const FString& Message)
 
 	FSlateNotificationManager::Get().AddNotification(NotifyInfo);
 }
+
