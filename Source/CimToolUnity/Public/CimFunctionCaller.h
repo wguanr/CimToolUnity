@@ -22,7 +22,7 @@ public:
 	static void CallInternal3(UClass* OuterClass, UFunction* Function, TTuple<TReturns...>& OutParams, TArgs&&... Args);
 
 	UFUNCTION()
-	static void Caller( UPARAM(ref) const FString& Name, UPARAM(ref) const FString& Args, const FString& Returns);
+	static void Caller( UPARAM(ref) const FString& Name, UPARAM(ref) const FString& InDescriptor, FString& JsonStyleReturns);
 };
 
 

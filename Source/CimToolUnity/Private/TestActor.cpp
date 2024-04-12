@@ -35,27 +35,27 @@ void ATestActor::BeginPlay()
 	// UCimFunctionCaller::Caller_Internal(this->GetClass(), this->FindFunction(FName("TestFunc")), OutParams);
 	// UCimFunctionCaller::CallInternal3(this->GetClass(), this->FindFunction(FName("TestFunc2")), OutParams, FString("Hello World"));
 	// find uclass object and call the function
-	if (UClass* TestClass =
-		FindObject<UClass>(ANY_PACKAGE, TEXT("NewBlueprint_C")))
+	if (UFunction* Function = FindObject<UFunction>(ANY_PACKAGE, TEXT("NewFunction111")))
 	{
-			// UCimFunctionCaller::Caller_Internal(TestClass, TestClass->FindFunctionByName(FName("T4")), OutParams, true);
-
+		
+		DebugThis(TEXT("get ufunction"), EBugSeverity::EWarning);
+		UCimFunctionCaller::Caller_Internal(Function->GetOuterUClass(), Function, OutParams);
 	}
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Can't find the class"));
 	
 	}
-	TEXT("/Script/Engine.Blueprint'/Game/Developers/ue/NewFunctionLibrary.NewFunctionLibrary'");
-	TArray<UObject*> Objects;
-	GetObjectsOfClass(UBlueprintFunctionLibrary::StaticClass(), Objects);
-	UClass* TestClass = LoadClass<UBlueprintFunctionLibrary>(nullptr, TEXT("/Game/Developers/ue/NewFunctionLibrary.NewFunctionLibrary_C"));
-	if (TestClass)
-	{
-		DebugThis(TestClass->GetClass()->GetName(),EBugSeverity::EWarning);
-		UCimFunctionCaller::Caller_Internal(TestClass->GetClass(), TestClass->FindFunctionByName(FName("Test")), OutParams, true);
-		
-	}
+	// TEXT("/Script/Engine.Blueprint'/Game/Developers/ue/NewFunctionLibrary.NewFunctionLibrary'");
+	// TArray<UObject*> Objects;
+	// GetObjectsOfClass(UBlueprintFunctionLibrary::StaticClass(), Objects);
+	// UClass* TestClass = LoadClass<UBlueprintFunctionLibrary>(nullptr, TEXT("/Game/Developers/ue/NewFunctionLibrary.NewFunctionLibrary_C"));
+	// if (TestClass)
+	// {
+	// 	DebugThis(TestClass->GetClass()->GetName(),EBugSeverity::EWarning);
+	// 	UCimFunctionCaller::Caller_Internal(TestClass->GetClass(), TestClass->FindFunctionByName(FName("Test")), OutParams, true);
+	// 	
+	// }
 	
 	// get the utc time
 	FDateTime CurrentTime = FDateTime::UtcNow();

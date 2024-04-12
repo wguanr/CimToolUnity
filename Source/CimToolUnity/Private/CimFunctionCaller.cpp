@@ -3,6 +3,8 @@
 
 #include "CimFunctionCaller.h"
 
+#include "JsonLibraryObject.h"
+
 
 template<typename... TReturns, typename... TArgs>
 void UCimFunctionCaller::Caller_Internal(UClass* OuterClass, UFunction* Function, TTuple<TReturns...>& OutParams, TArgs&&... Args)
@@ -115,10 +117,24 @@ void UCimFunctionCaller::CallInternal3(UClass* OuterClass, UFunction* Function, 
   }
 }
 
-void UCimFunctionCaller::Caller(const FString& Name, const FString& Args, const FString& Returns)
+void UCimFunctionCaller::Caller(const FString& Name, const FString& InDescriptor,  FString& Returns)
 {
   // find the function or event or interface by name
+  const FJsonLibraryObject Descriptor = FJsonLibraryObject::Parse(InDescriptor);
+	
+  const FJsonLibraryValue Function = Descriptor.GetValue("command");
 
+	
+  const FJsonLibraryValue Options_Object = Descriptor.GetValue("options");
+	
+  const FJsonLibraryValue Args = Options_Object.GetObject().GetValue("args");
+  const FJsonLibraryValue MessageID = Options_Object.GetObject().GetValue("messageId");
+  // FJsonLibraryObject x =  Descriptor
+  GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Function: %s"), *Function.GetString()));
+  // GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Args: %s"), *Args.Stringify()));
+
+  FJsonLibraryObject ArgsObject = Args.GetObject();
+  
   // pass the args
 
   return;

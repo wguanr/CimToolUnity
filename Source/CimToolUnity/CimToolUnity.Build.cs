@@ -37,7 +37,8 @@ public class CimToolUnity : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore",
+				"SlateCore", 
+				"JsonLibrary",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
